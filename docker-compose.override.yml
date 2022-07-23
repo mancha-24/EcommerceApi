@@ -1,0 +1,31 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  ecommerce.api.products:
+    ports:
+      - 6001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  ecommerce.api.customers:
+    ports:
+      - 6002:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  ecommerce.api.orders:
+    ports:
+      - 6003:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  ecommerce.api.Search:
+    ports:
+      - 6004:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Services__Products=http://ecomerce.api.products
+      - Services__Customers=http://ecomerce.api.customers
+      - Services__Orders=http://ecomerce.api.orders
