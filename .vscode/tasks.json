@@ -36,6 +36,66 @@
                 "${workspaceFolder}/Ecommerce.Api.Orders/Ecommerce.Api.Orders.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: debug",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "ecommecemsdemo:dev",
+                "target": "base",
+                "dockerfile": "${workspaceFolder}/Ecommerce.Api.Products/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/Ecommerce.Api.Products/Ecommerce.Api.Products.csproj"
+            }
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build: release",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerBuild": {
+                "tag": "ecommecemsdemo:latest",
+                "dockerfile": "${workspaceFolder}/Ecommerce.Api.Products/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/Ecommerce.Api.Products/Ecommerce.Api.Products.csproj"
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build: debug"
+            ],
+            "dockerRun": {
+                "os": "Windows"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/Ecommerce.Api.Products/Ecommerce.Api.Products.csproj",
+                "enableDebugging": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: release",
+            "dependsOn": [
+                "docker-build: release"
+            ],
+            "dockerRun": {
+                "os": "Windows"
+            },
+            "netCore": {
+                "appProject": "${workspaceFolder}/Ecommerce.Api.Products/Ecommerce.Api.Products.csproj"
+            }
         }
     ]
 }

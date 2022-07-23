@@ -1,0 +1,52 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  ecommerce.api.products:
+    image: ${DOCKER_REGISTRY - }ecommerceapiproducts
+    build:
+      context: .
+      dockerfile: Ecommerce.Api.Products/Dockerfile
+    ports:
+      - 5059:5059
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:c:\remote_debugger:rw
+
+  ecommerce.api.customers:
+    image: ${DOCKER_REGISTRY - }ecommerceapicustomers
+    build:
+      context: .
+      dockerfile: Ecommerce.Api.Customers/Dockerfile
+    ports:
+      - 5059:5059
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:c:\remote_debugger:rw
+
+  ecommerce.api.orders:
+    image: ${DOCKER_REGISTRY - }ecommerceapiorders
+    build:
+      context: .
+      dockerfile: Ecommerce.Api.Orders/Dockerfile
+    ports:
+      - 5059:5059
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:c:\remote_debugger:rw
+
+  ecommerce.api.Search:
+    image: ${DOCKER_REGISTRY - }ecommerceapisearch
+    build:
+      context: .
+      dockerfile: Ecommerce.Api.Search/Dockerfile
+    ports:
+      - 5059:5059
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ~/.vsdbg:c:\remote_debugger:rw
