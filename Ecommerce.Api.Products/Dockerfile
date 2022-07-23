@@ -6,8 +6,8 @@ ENV ASPNETCORE_URLS=http://+:5059
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Ecommerce.Api.Products/Ecommerce.Api.Products.csproj", "Ecommerce.Api.Products/"]
-RUN dotnet restore "Ecommerce.Api.Products\Ecommerce.Api.Products.csproj"
+COPY ["Ecommerce.Api.Products.csproj", "Ecommerce.Api.Products/"]
+RUN dotnet restore "Ecommerce.Api.Products.csproj"
 COPY . .
 WORKDIR "/src/Ecommerce.Api.Products"
 RUN dotnet build "Ecommerce.Api.Products.csproj" -c Release -o /app/build
