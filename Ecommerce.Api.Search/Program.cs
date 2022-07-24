@@ -13,7 +13,7 @@ builder.Services.AddScoped<ICustomersService, CustomersService>();
 
 builder.Services.AddHttpClient("OrderService", config =>{
     config.BaseAddress = new Uri(configuration["Services:Orders"]);
-});
+}).AddTransientHttpErrorPolicy(p=> p.WaitAndRetryAsync(5, _ => TimeSpan.FromMilliseconds(500)));
 
 builder.Services.AddHttpClient("ProductsService", config =>{
     config.BaseAddress = new Uri(configuration["Services:Products"]);
