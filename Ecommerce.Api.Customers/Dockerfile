@@ -6,8 +6,8 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Ecommerce.Api.Customers.csproj", "Ecommerce.Api.Customers/"]
-RUN dotnet restore "Ecommerce.Api.Customers.csproj"
+COPY ["Ecommerce.Api.Customers/Ecommerce.Api.Customers.csproj", "Ecommerce.Api.Customers/"]
+RUN dotnet restore "Ecommerce.Api.Customers/Ecommerce.Api.Customers.csproj"
 COPY . .
 WORKDIR "/src/Ecommerce.Api.Customers"
 RUN dotnet build "Ecommerce.Api.Customers.csproj" -c Release -o /app/build
