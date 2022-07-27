@@ -1,10 +1,19 @@
 using Ecommerce.Api.Search.Interfaces;
 using Ecommerce.Api.Search.Services;
+using Microsoft.ApplicationInsights;
 using Polly;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
+builder.Host.UseSerilog((context, config) => 
+{
+    config.WriteTo.ApplicationInsights(
+        new TelemetryClient() { InstrumentationKey = configuration["ApplicationInsights:InstrumentationKey"] }, 
+        TelemetryConverter.Events); 
+    
+}, writeToProviders: true);
 
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
