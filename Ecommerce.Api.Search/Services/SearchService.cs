@@ -7,11 +7,13 @@ namespace Ecommerce.Api.Search.Services
         private readonly IOrdersService _ordersService;
         private readonly IProductsService _productsService;
         private readonly ICustomersService _customersService;
-        public SearchService(IOrdersService ordersService, IProductsService productsService, ICustomersService customersService)
+        private readonly ILogger<SearchService> _logger;
+        public SearchService(IOrdersService ordersService, IProductsService productsService, ICustomersService customersService, ILogger<SearchService> logger)
         {
             _ordersService = ordersService;
             _productsService = productsService;
             _customersService = customersService;
+            _logger = logger;
         }
         public async Task<(bool IsSuccess, dynamic SearchResults)> SearchAsync(int customerId)
         {
@@ -37,10 +39,10 @@ namespace Ecommerce.Api.Search.Services
                                 new { Name = "Customer information is not available"},
                     Order = ordersResult.Orders
                 };
-                
+                _logger?.LogInformation("Successfull Return");
                 return (true, result);
             }
-
+            _logger?.LogInformation("Retornando 404 Notfound");
             return (false, null);
         }
     }

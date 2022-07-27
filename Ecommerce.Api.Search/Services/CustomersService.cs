@@ -32,7 +32,7 @@ namespace Ecommerce.Api.Search.Services
             }
             catch(Exception ex)
             {
-                _logger?.LogError(ex.ToString());
+                _logger?.LogError($"Error:: {ex.ToString()}");
                 return (false, null, ex.Message);
             }
         }
