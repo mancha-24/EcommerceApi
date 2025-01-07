@@ -1,0 +1,35 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  products:
+    image: mancha24/ecommerceapiproducts:latest
+    ports:
+      - "80/http"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  customers:
+    image: mancha24/ecommerceapicustomers:latest
+    ports:
+      - "80/http"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  orders:
+    image: mancha24/ecommerceapiorders:latest
+    ports:
+      - "80/http"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  search:
+    image: mancha24/ecommerceapisearch:latest
+    ports:
+      - "6004:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Services__Products=http://10.0.0.4:19081/lil/products/
+      - Services__Customers=http://10.0.0.4:19081/lil/customers/
+      - Services__Orders=http://10.0.0.4:19081/lil/orders/
